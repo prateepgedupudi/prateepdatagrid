@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import com.prateep.util.Item;
 import com.thoughtworks.xstream.XStream;
@@ -30,6 +33,7 @@ import net.sf.json.JSONObject;
  * Servlet implementation class Prateep
  */
 public class Prateep extends HttpServlet {
+	Logger logger = LoggerFactory.getLogger(Prateep.class);
 	private static final long serialVersionUID = 1L;
 	private Item itemdata;
 	private List<Item> list=new ArrayList<Item>();
@@ -52,6 +56,11 @@ public class Prateep extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("Sample: Debug");
+		logger.error("Sample: Error");
+		logger.info("Sample: Info");
+		logger.trace("Sample: Trace");
+		logger.warn("Sample: Warn");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
@@ -70,13 +79,13 @@ public class Prateep extends HttpServlet {
 			});
 			xstream.alias("items", com.prateep.util.Item.class);
 			String str=xstream.toXML(listcopy);
-			str="{'numRows':10000,'items':"+str+"}";
+			str="{\"numRows\":\"10000\",\"items\":"+str+"}";
 			if(callBackParam!=null){
 				str=callBackParam+"("+str+");";
 			}
 			out.print(str);
 		}else{
-			out.print("{'res':'Thanks for your get request'}");
+			out.print("{\"res\":\"Thanks for your get request\"}");
 		}
 		out.flush();
 	}
