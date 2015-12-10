@@ -56,11 +56,11 @@ public class Prateep extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("Sample: Debug");
-		logger.error("Sample: Error");
-		logger.info("Sample: Info");
-		logger.trace("Sample: Trace");
-		logger.warn("Sample: Warn");
+		logger.debug("Prateep: Debug");
+		logger.error("Prateep: Error");
+		logger.info("Prateep: Info");
+		logger.trace("Prateep: Trace");
+		logger.warn("Prateep: Warn");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
@@ -72,6 +72,8 @@ public class Prateep extends HttpServlet {
 			for(int i=start;i<=count;i++){
 				listcopy.add(list.get(i));
 			}
+			//Below line is to test the logging in other package.
+			listcopy.get(0).getId();
 			XStream xstream = new XStream(new JsonHierarchicalStreamDriver() {
 			    public HierarchicalStreamWriter createWriter(Writer writer) {
 			        return new JsonWriter(writer, JsonWriter.DROP_ROOT_MODE);
